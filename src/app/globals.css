@@ -1,0 +1,195 @@
+
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-Regular-BF644b214ff145f.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-Italic-BF644b214fb0c0a.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-Ultrabold-BF644b21500840c.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-UltraboldItalic-BF644b214faef01.otf') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-Ultralight-BF644b21500d0c0.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Editorial New';
+  src: url('/fonts/editorial new/PPEditorialNew-UltralightItalic-BF644b214ff1e9b.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --bg-primary: #0C0C0C;
+  --bg-secondary: #141414;
+  --bg-tertiary: #0B0B0B;
+  --bg-surface: #1F1F1F;
+  --bg-card: #1C1C1C;
+  --color-deep-red: #140203;
+  --text-primary: #F0F0F0;
+  --color-orange: #F36C21;
+  --color-blue: #0156FE;
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-secondary: var(--bg-secondary);
+  --color-tertiary: var(--bg-tertiary);
+  --color-surface: var(--bg-surface);
+  --color-card: var(--bg-card);
+  --color-deep-red: var(--color-deep-red);
+  --color-blue: var(--color-blue);
+  --color-orange: var(--color-orange);
+  
+  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-display: "PP Editorial New", serif;
+}
+
+@utility container-custom {
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  
+  @media (min-width: 768px) {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
+  @media (min-width: 1280px) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography elements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+::selection {
+  background: var(--color-orange);
+  color: var(--bg-primary);
+}
+
+/* Custom Cursor Rules */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"]) {
+    cursor: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hero Section Custom Utilities */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+
+.hero-morph-portrait {
+  min-height: 500px;
+  width: 100%; /* Changed from 600px to prevent mobile overflow */
+  max-width: 600px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .hero-morph-portrait {
+    min-height: 600px;
+    width: 600px; /* Restored to exact 600px on desktop per spec */
+  }
+}
+
+/* Work Section Custom Animations */
+@keyframes wsFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.ws-fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  filter: blur(8px);
+  will-change: opacity, transform, filter;
+}
+
+.ws-visible.ws-fade-up {
+  animation: wsFadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Social Strip Native Scrollbar Hide */
+.ss-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.ss-strip {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

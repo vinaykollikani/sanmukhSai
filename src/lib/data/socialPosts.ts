@@ -1,0 +1,58 @@
+import { SocialPost } from "@/types/social";
+
+export const socialPosts: SocialPost[] = [
+  {
+    id: 1,
+    platform: 'INSTAGRAM',
+    title: 'BrewCraft Reveal',
+    description: 'Brand identity reveal reel',
+    cover: '/social/brewcraft-reel.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'reel',
+  },
+  {
+    id: 2,
+    platform: 'INSTAGRAM',
+    title: 'Oribel Packaging',
+    description: 'Packaging design process',
+    cover: '/social/oribel-post.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'post',
+  },
+  {
+    id: 3,
+    platform: 'REELS',
+    title: 'Lumio 3D Breakdown',
+    description: '3D render process breakdown',
+    cover: '/social/lumio-reel.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'reel',
+  },
+  {
+    id: 4,
+    platform: 'INSTAGRAM',
+    title: 'Vanta Logo Motion',
+    description: 'Logo animation loop',
+    cover: '/social/vanta-post.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'reel',
+  },
+  {
+    id: 5,
+    platform: 'INSTAGRAM',
+    title: 'Terroir Label Design',
+    description: 'Label design final shot',
+    cover: '/social/terroir-post.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'post',
+  },
+  {
+    id: 6,
+    platform: 'REELS',
+    title: 'Solace Campaign Cut',
+    description: 'Final 30s campaign cut',
+    cover: '/social/solace-reel.jpg',
+    url: 'https://www.instagram.com/sanmukh.designs/',
+    type: 'reel',
+  },
+];
