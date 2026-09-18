@@ -1,0 +1,28 @@
+/* =============================================
+   HERO SECTION
+   ============================================= */
+
+.hero-morph-portrait {
+  min-height:  500px;
+  width:       100%;
+  max-width:   600px;
+  margin:      0 auto;
+  flex-shrink: 0;
+}
+
+@media (min-width: 1024px) {
+  .hero-morph-portrait {
+    min-height: 600px;
+    width:      600px;
+  }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
+}
+

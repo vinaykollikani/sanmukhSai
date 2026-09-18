@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, MouseEvent } from "react";
+import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -28,45 +28,21 @@ const QuoteIcon = () => (
 );
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    cardRef.current.style.setProperty("--mouse-x", `${x}px`);
-    cardRef.current.style.setProperty("--mouse-y", `${y}px`);
-  };
-
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      className="relative p-8 md:p-10 rounded-3xl bg-[#141414] border border-white/5 hover:border-orange/50 transition-all duration-300 group overflow-hidden flex flex-col justify-between h-full"
+    <article
+      className="card testimonial-card p-8 md:p-10 transition-all duration-300 group flex flex-col justify-between h-full hover:[--card-border-color:rgba(243,108,33,0.5)]"
     >
-      {/* Top Accent Hover Line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange via-orange/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
-      
-      {/* Local Cursor Spotlight */}
-      <div
-        className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{
-          background: "radial-gradient(350px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(243,108,33,0.13), transparent 70%)"
-        }}
-      />
 
-      <div className="relative z-20">
+      <div className="testimonial-card__body relative z-20">
         <QuoteIcon />
-        <p className="text-white/80 font-light leading-relaxed mb-8 text-[15px] font-sans">
+        <p className="testimonial-card__quote text-white/80 font-light leading-relaxed mb-8 text-[15px] font-sans">
           &quot;{testimonial.text}&quot;
         </p>
       </div>
 
-      <div className="mt-auto flex items-center justify-between pt-6 border-t border-white/5 relative z-20">
+      <div className="testimonial-card__meta mt-auto flex items-center justify-between pt-6 border-t border-white/5 relative z-20">
         <div>
-          <div className="text-white font-bold text-sm font-sans">
+          <div className="testimonial-card__author text-white font-bold text-sm font-sans">
             {testimonial.author}
           </div>
           <div className="text-white/50 font-sans text-[10px] uppercase tracking-widest mt-1">
@@ -78,7 +54,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => {
           {testimonial.project}
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -89,9 +65,11 @@ interface TestimonialsProps {
 export function Testimonials({ testimonials }: TestimonialsProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const spotlightRef = useCursor(sectionRef);
+  const glowRef = useRef<HTMLDivElement | null>(null);
+
 
   useGSAP(() => {
+
     const cards = cardsRef.current.filter(Boolean);
     if (cards.length === 0) return;
 
@@ -120,45 +98,27 @@ export function Testimonials({ testimonials }: TestimonialsProps) {
     <section
       id="testimonials"
       ref={sectionRef}
-      className="w-full bg-[#0C0C0C] py-32 relative overflow-hidden select-none"
+      className="section section--testimonials w-full  py-32 relative overflow-hidden select-none"
     >
-      {/* Global Cursor Spotlight */}
-      <div
-        ref={spotlightRef}
-        className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none z-10 opacity-0 blur-[90px] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          background: "radial-gradient(circle, rgba(243,108,33,0.18) 0%, rgba(243,108,33,0.06) 45%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
 
-      {/* Secondary Left-Side Glow */}
-      <div
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange/4 rounded-full blur-[150px] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="max-w-7xl mx-auto px-6 md:px-8 w-full relative z-10">
+      <div className="container-wide relative z-10">
         
         {/* Header */}
-        <div className="flex flex-col items-center text-center space-y-4 mb-20">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-black/40 backdrop-blur border border-orange/30 shadow-lg">
-            <div className="w-1.5 h-1.5 rounded-full bg-orange animate-ping" />
-            <span className="text-orange font-bold font-sans text-xs uppercase tracking-widest">
-              EPISODE 04 <span className="text-white/40 font-normal">|</span> <span className="text-white font-normal">REVIEWS</span>
-            </span>
+        <header className="section-header mb-20">
+          <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            <span className="eyebrow-label">CLIENT RECEPTION</span>
+            <span className="eyebrow-divider">|</span>
+            <span className="font-bold">REVIEWS</span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
-            CLIENT <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange via-orange/80 to-[#FF8A00]">
-              RECEPTION.
-            </span>
+          <h2 className="section-heading">
+            TESTIMONIALS
           </h2>
-        </div>
+        </header>
 
         {/* Testimonial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="testimonials-grid grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((review, i) => (
             <div key={i} ref={(el) => { cardsRef.current[i] = el; }}>
               <TestimonialCard testimonial={review} />

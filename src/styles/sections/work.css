@@ -1,0 +1,57 @@
+/* =============================================
+   WORK SECTION
+   ============================================= */
+
+.work-card {
+  display:       flex;
+  flex-direction: column;
+  border-radius: var(--radius-lg);
+  overflow:      hidden;
+  border:        1px solid var(--color-border);
+  background:    rgba(12, 12, 12, 0.80);
+  transition:
+    transform     var(--duration-slow) var(--ease-editorial),
+    border-color  var(--duration-slow) var(--ease-editorial),
+    box-shadow    var(--duration-slow) var(--ease-editorial);
+}
+
+.work-card:hover {
+  transform:    translateY(-8px);
+  border-color: var(--color-accent);
+  box-shadow:   0 8px 30px rgba(243, 108, 33, 0.15);
+}
+
+.work-card-image {
+  position:   relative;
+  width:      100%;
+  aspect-ratio: 4/3;
+  overflow:   hidden;
+}
+
+.work-card-image img {
+  transition: transform 700ms var(--ease-editorial);
+}
+
+.work-card:hover .work-card-image img {
+  transform: scale(1.05);
+}
+
+.work-card-category {
+  position:     absolute;
+  top:          1rem;
+  left:         1rem;
+  background:   var(--color-accent);
+  color:        var(--color-bg-primary);
+  font-family:  var(--font-body);
+  font-size:    0.625rem;
+  font-weight:  700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding:      0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+  display:      flex;
+  align-items:  center;
+  gap:          0.5rem;
+  box-shadow:   0 0 10px rgba(243, 108, 33, 0.30);
+}
+

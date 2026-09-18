@@ -1,0 +1,38 @@
+/* =============================================
+   HORIZONTAL SCROLL / GALLERY
+   ============================================= */
+
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-gallery {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-gallery > * {
+  scroll-snap-align: start;
+}
+
+/* No scrollbar utility — applied to galleries */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Social strip alias (existing class preserved) */
+.ss-strip {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.ss-strip::-webkit-scrollbar {
+  display: none;
+}
+

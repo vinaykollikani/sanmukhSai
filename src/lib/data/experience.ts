@@ -1,19 +1,19 @@
 import { ExperienceItem } from "@/types/experience";
 
 export const experience: ExperienceItem[] = [
-  {
-    role: "Freelance Designer",
-    company: "Independent",
-    period: "2023 — Present",
-    description: "End-to-end brand identity, packaging systems, and 3D product renders for D2C brands.",
+    {
+    role: "Graphic Designer",
+    company: "Samaavesh Consultancy",
+    period: "Apr 2026 — Present",
+    description: "Designed communication materials for social impact initiatives and awareness campaigns.",
     highlights: [
-      "Built brand identities for 12+ D2C clients, from logo systems to packaging",
-      "Delivered photoreal 3D product renders used across e-commerce and paid media",
-      "Managed client relationships and timelines independently, start to finish"
+      "Designed campaign materials for social impact initiatives across print and digital",
+      "Translated complex program information into clear, accessible layouts",
+      "Collaborated directly with program teams to align design with campaign goals"
     ],
-    tags: ["Brand Systems", "3D Renders", "Packaging"]
+    tags: ["Social Media", "Layout"]
   },
-  {
+    {
     role: "Graphic Designer",
     company: "Pancham Studios Pvt. Ltd.",
     period: "Dec 2025 — Feb 2026",
@@ -26,15 +26,17 @@ export const experience: ExperienceItem[] = [
     tags: ["Brand Identity", "Print Design"]
   },
   {
-    role: "Graphic Designer",
-    company: "Samaavesh Consultancy",
-    period: "Apr 2026 — Present",
-    description: "Designed communication materials for social impact initiatives and awareness campaigns.",
+    role: "Freelance Designer",
+    company: "Independent",
+    period: "2023 — Present",
+    description: "End-to-end brand identity, packaging systems, and 3D product renders for D2C brands.",
     highlights: [
-      "Designed campaign materials for social impact initiatives across print and digital",
-      "Translated complex program information into clear, accessible layouts",
-      "Collaborated directly with program teams to align design with campaign goals"
+      "Built brand identities for 12+ D2C clients, from logo systems to packaging",
+      "Delivered photoreal 3D product renders used across e-commerce and paid media",
+      "Managed client relationships and timelines independently, start to finish"
     ],
-    tags: ["Social Media", "Layout"]
-  }
+    tags: ["Brand Systems", "3D Renders", "Packaging"]
+  },
+
+
 ];

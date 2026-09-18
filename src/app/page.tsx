@@ -11,7 +11,14 @@ import { Experience } from "@/components/sections/Experience";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
-import { fetchProjects, fetchSocialPosts, fetchSkillCategories, fetchTools, fetchExperience, fetchTestimonials } from "@/lib/data/fetcher";
+import {
+  fetchProjects,
+  fetchSocialPosts,
+  fetchSkillCategories,
+  fetchTools,
+  fetchExperience,
+  fetchTestimonials,
+} from "@/lib/data/fetcher";
 
 export default async function Home() {
   const projects = await fetchProjects();
@@ -23,28 +30,18 @@ export default async function Home() {
 
   return (
     <>
-      <Preloader />
+      {/* <Preloader /> */}
       <CustomCursor />
       <Navbar />
-      
       <HeroSection />
-      
       <WorkSection projects={projects} />
-
       <SocialSection posts={socialPosts} />
-
       <About />
-
       <Skills categories={skillCategories} />
-
       <ToolsSection tools={tools} />
-
       <Experience items={experience} />
-
       <Testimonials testimonials={testimonials} />
-
       <Contact />
-
       <Footer />
     </>
   );

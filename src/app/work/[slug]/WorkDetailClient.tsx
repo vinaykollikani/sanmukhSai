@@ -21,7 +21,6 @@ interface WorkDetailClientProps {
 
 export function WorkDetailClient({ project, prevProject, nextProject }: WorkDetailClientProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const spotlightRef = useCursor(containerRef);
   const heroRef = useRef<HTMLDivElement | null>(null);
 
   // Force scroll restoration
@@ -43,19 +42,24 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
 
     // Scroll reveal-up animation for all .reveal-up elements
     const revealElements = gsap.utils.toArray(".reveal-up") as HTMLElement[];
-    
+
+    // Override the CSS transition on reveal-up so GSAP has full control
+    gsap.set(revealElements, { clearProps: "transition" });
+
     revealElements.forEach((el) => {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 50, filter: "blur(6px)" },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          filter: "blur(0px)",
+          duration: 0.85,
           ease: "power3.out",
+          clearProps: "filter",
           scrollTrigger: {
             trigger: el,
-            start: "top 80%",
+            start: "top 82%",
             toggleActions: "play none none reverse",
           },
         }
@@ -74,20 +78,11 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
     >
       <CustomCursor />
 
-      {/* Cursor Spotlight */}
-      <div
-        ref={spotlightRef}
-        className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none z-10 opacity-0 blur-[90px] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          background: "radial-gradient(circle, rgba(243,108,33,0.18) 0%, rgba(243,108,33,0.06) 45%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
 
       {/* Top Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 w-full px-6 md:px-16 py-6 flex items-center justify-between bg-gradient-to-b from-[#0C0C0C]/90 to-transparent pointer-events-none">
         <Link
-          href="/#work"
+          href="/work"
           className="group pointer-events-auto flex items-center gap-2 text-[10px] font-sans text-white/50 hover:text-orange uppercase tracking-widest transition-colors duration-300"
         >
           <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span> BACK TO WORK
@@ -102,13 +97,14 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
       {/* Hero */}
       <header className="relative min-h-[65vh] flex items-end pb-16 px-6 md:px-16 overflow-hidden">
         {/* Background Category Text */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-          <div className="text-[18vw] font-black text-white/[0.025] tracking-tight leading-none uppercase whitespace-nowrap font-sans">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+          <div className="text-[18vw] font-black text-white/[0.025] tracking-tight leading-none uppercase whitespace-nowrap font-sans select-none">
             {categoryText}
           </div>
         </div>
 
-        {/* Scanline Texture */}
+        {/* Scanline Texture & Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C] via-[#0C0C0C]/50 to-transparent pointer-events-none z-0" />
         <div
           className="absolute inset-0 pointer-events-none z-0 opacity-[0.03]"
           style={{
@@ -173,7 +169,7 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
       <div className="max-w-5xl mx-auto px-6 md:px-16 py-20 space-y-24">
         
         {/* Overview */}
-        <div className="reveal-up grid md:grid-cols-[1fr_2fr] gap-12 items-start opacity-0">
+        <div className="reveal-up grid md:grid-cols-[1fr_2fr] gap-12 items-start">
           <div className="text-[10px] font-sans text-orange uppercase tracking-widest">
             — Overview
           </div>
@@ -196,36 +192,26 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
           </div>
         </div>
 
-        {/* Main Visual Placeholder */}
-        <div className="reveal-up relative w-full aspect-[21/9] rounded-3xl overflow-hidden border border-white/5 opacity-0">
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(135deg, rgba(1,86,254,0.3) 0%, #0C0C0C 50%, rgba(243,108,33,0.8) 100%)"
-            }}
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="text-xs font-sans text-white/40 uppercase tracking-widest mb-4">Project Visual</span>
-            <span className="text-6xl md:text-8xl font-black text-white/10 uppercase tracking-tight">
-              {firstWordOfTitle}
-            </span>
+        {/* Main Visual */}
+        <div className="reveal-up relative w-full rounded-2xl md:rounded-3xl overflow-hidden border border-white/5 shadow-2xl">
+          <div className="w-full relative aspect-video md:aspect-[21/9] bg-white/5">
+             <img 
+               src={project.cover} 
+               alt={`${project.title} main visual`}
+               className="w-full h-full object-cover object-center"
+             />
           </div>
 
           {/* Corner Marks */}
-          <div className="absolute top-6 left-6 w-2 h-2 border-t border-l border-white/30" />
-          <div className="absolute top-6 right-6 w-2 h-2 border-t border-r border-white/30" />
-          <div className="absolute bottom-6 left-6 w-2 h-2 border-b border-l border-white/30" />
-          <div className="absolute bottom-6 right-6 w-2 h-2 border-b border-r border-white/30" />
-
-          {/* Bottom Left Metadata */}
-          <div className="absolute bottom-6 left-10 text-[10px] font-sans text-white/40 uppercase tracking-widest">
-            {project.category} — {project.category}
-          </div>
+          <div className="absolute top-6 left-6 w-2 h-2 border-t border-l border-white/30 mix-blend-difference" />
+          <div className="absolute top-6 right-6 w-2 h-2 border-t border-r border-white/30 mix-blend-difference" />
+          <div className="absolute bottom-6 left-6 w-2 h-2 border-b border-l border-white/30 mix-blend-difference" />
+          <div className="absolute bottom-6 right-6 w-2 h-2 border-b border-r border-white/30 mix-blend-difference" />
         </div>
 
         {/* Deliverables */}
         {(project.structuredDeliverables && project.structuredDeliverables.length > 0) || (project.deliverables && project.deliverables.length > 0) ? (
-          <div className="reveal-up opacity-0">
+          <div className="reveal-up">
             <div className="flex items-center gap-4 mb-12">
               <span className="text-[10px] font-sans text-orange uppercase tracking-widest whitespace-nowrap">
                 — Deliverables
@@ -259,34 +245,23 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
         ) : null}
 
         {/* Secondary Visual Blocks */}
-        <div className="reveal-up grid grid-cols-2 gap-4 opacity-0">
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(160deg, rgba(243,108,33,0.8) 0%, #0C0C0C 80%)"
-              }}
-            />
-            <div className="absolute bottom-4 left-4 text-[10px] font-sans text-white/40 uppercase tracking-widest">
-              Detail View 01
-            </div>
+        {project.gallery && project.gallery.length > 0 && (
+          <div className="reveal-up grid grid-cols-1 md:grid-cols-2 gap-4">
+            {project.gallery.map((img, idx) => (
+              <div key={idx} className={`relative rounded-2xl overflow-hidden border border-white/5 ${idx === 2 ? 'md:col-span-2' : ''}`}>
+                <img 
+                  src={img.image} 
+                  alt={img.alt || `Detail view ${idx + 1}`}
+                  className="w-full h-full object-cover object-center aspect-[4/3] hover:scale-105 transition-transform duration-700 ease-out"
+                />
+              </div>
+            ))}
           </div>
-          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(200deg, rgba(1,86,254,0.3) 0%, #0C0C0C 70%)"
-              }}
-            />
-            <div className="absolute bottom-4 left-4 text-[10px] font-sans text-white/40 uppercase tracking-widest">
-              Detail View 02
-            </div>
-          </div>
-        </div>
+        )}
 
         {/* Process */}
         {project.process && project.process.length > 0 && (
-          <div className="reveal-up opacity-0">
+          <div className="reveal-up">
             <div className="flex items-center gap-4 mb-8">
               <span className="text-[10px] font-sans text-orange uppercase tracking-widest whitespace-nowrap">
                 — Process
@@ -363,7 +338,7 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
       {/* Back to All Projects */}
       <div className="flex justify-center pb-16">
         <Link
-          href="/#work"
+          href="/work"
           className="group flex items-center gap-4 text-[10px] font-sans uppercase tracking-widest text-white/50 hover:text-white transition-colors"
         >
           <span className="w-6 h-px bg-white/20 group-hover:w-10 group-hover:bg-orange transition-all duration-300" />

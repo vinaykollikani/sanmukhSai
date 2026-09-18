@@ -13,7 +13,9 @@ if (typeof window !== "undefined") {
 export function About() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
-  const spotlightRef = useCursor(sectionRef);
+  const glow1Ref = useRef<HTMLDivElement | null>(null);
+  const glow2Ref = useRef<HTMLDivElement | null>(null);
+
 
   // Collect refs for cards safely
   const setCardRef = (el: HTMLDivElement | null) => {
@@ -24,6 +26,7 @@ export function About() {
 
   // GSAP Animation
   useGSAP(() => {
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
@@ -54,75 +57,38 @@ export function About() {
     );
   }, { scope: sectionRef });
 
-  // Native mouse move handler for individual card spotlight
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    card.style.setProperty("--mouse-x", `${x}px`);
-    card.style.setProperty("--mouse-y", `${y}px`);
-  };
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#0C0C0C] text-white py-32 flex flex-col justify-center select-none overflow-hidden"
+      className="section section--about relative w-full min-h-screen  text-white py-32 flex flex-col justify-center select-none overflow-hidden"
     >
-      {/* Global Section Spotlight */}
-      <div
-        ref={spotlightRef}
-        className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none z-10 opacity-0 blur-[90px] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          background: "radial-gradient(circle, rgba(243,108,33,0.18) 0%, rgba(243,108,33,0.06) 45%, transparent 70%)"
-        }}
-        aria-hidden="true"
-      />
 
-      {/* Decorative Glow 1 */}
-      <div
-        className="absolute top-1/4 left-10 w-[500px] h-[500px] bg-orange/10 rounded-full blur-[160px] pointer-events-none z-0"
-        aria-hidden="true"
-      />
-
-      {/* Decorative Glow 2 */}
-      <div
-        className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-orange/6 rounded-full blur-[160px] pointer-events-none z-0"
-        aria-hidden="true"
-      />
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 w-full space-y-16">
+      <div className="container-wide relative z-10 space-y-16">
         
         {/* Section Header */}
-        <div className="flex flex-col items-start space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded bg-black/80 backdrop-blur-2xl border border-orange/40 text-xs font-sans uppercase tracking-widest text-white shadow-2xl">
-            <span className="w-2 h-2 rounded-full bg-orange animate-ping" />
-            ABOUT THE DESIGNER
+        <header className="section-header">
+          <div className="eyebrow">
+            <span className="eyebrow-dot" />
+            <span className="eyebrow-label">ABOUT THE DESIGNER</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-display font-black tracking-tighter text-white">
+          <h2 className="section-heading">
             ABOUT THE DESIGNER
           </h2>
-        </div>
+        </header>
 
         {/* About Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div className="about-grid grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Card 1 */}
           <div
             ref={setCardRef}
-            onMouseMove={handleMouseMove}
-            className="md:col-span-7 p-8 md:p-12 flex flex-col justify-between bg-[#0C0C0C]/90 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl relative group overflow-hidden hover:border-orange/60 transition-all duration-500"
+            className="card about-card md:col-span-7 p-8 md:p-12 flex flex-col justify-between relative group transition-all duration-500 hover:[--card-border-color:rgba(243,108,33,0.6)]"
           >
-            {/* Card Hover Spotlight Overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
-              style={{
-                background: "radial-gradient(400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(243,108,33,0.15), transparent 70%)"
-              }}
-            />
+
 
             {/* Decorative Number */}
             <div className="absolute top-0 right-0 p-8 pointer-events-none z-0">
@@ -130,8 +96,8 @@ export function About() {
             </div>
 
             {/* Card Content */}
-            <div className="relative z-10 space-y-6">
-              <h3 className="text-xs font-sans uppercase tracking-widest text-orange font-bold">
+            <div className="about-card__content relative z-10 space-y-6">
+              <h3 className="about-card__header text-xs font-sans uppercase tracking-widest text-orange font-bold">
                 CAST & BACKGROUND
               </h3>
               
@@ -146,8 +112,8 @@ export function About() {
             </div>
 
             {/* Tags */}
-            <div className="flex flex-wrap gap-2 relative z-10 mt-10">
-              {["Brand Identity", "Packaging Design", "3D Visualisation"].map(tag => (
+            <div className="about-card__tags flex flex-wrap gap-2 relative z-10 mt-10">
+              {["Brand Identity", "Packaging Design", "3D Visualisation", "Ui/Ux Design"].map(tag => (
                 <span key={tag} className="px-3.5 py-1.5 rounded bg-white/5 border border-white/10 text-xs font-sans text-white/80">
                   {tag}
                 </span>
@@ -158,16 +124,9 @@ export function About() {
           {/* Card 2 */}
           <div
             ref={setCardRef}
-            onMouseMove={handleMouseMove}
-            className="md:col-span-5 p-8 md:p-12 flex flex-col justify-between bg-[#0C0C0C]/90 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl relative group overflow-hidden hover:border-orange/60 transition-all duration-500"
+            className="card about-card md:col-span-5 p-8 md:p-12 flex flex-col justify-between relative group transition-all duration-500 hover:[--card-border-color:rgba(243,108,33,0.6)]"
           >
-            {/* Card Hover Spotlight Overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
-              style={{
-                background: "radial-gradient(400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(243,108,33,0.15), transparent 70%)"
-              }}
-            />
+
 
             {/* Decorative Number */}
             <div className="absolute top-0 right-0 p-8 pointer-events-none z-0">
@@ -175,9 +134,9 @@ export function About() {
             </div>
 
             {/* Card Content */}
-            <div className="relative z-10 flex-1 flex flex-col justify-between">
+            <div className="about-card__content relative z-10 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xs font-sans uppercase tracking-widest text-orange font-bold mb-6">
+                <h3 className="about-card__header text-xs font-sans uppercase tracking-widest text-orange font-bold mb-6">
                   MILESTONES & ACCOLADES
                 </h3>
                 
@@ -209,38 +168,28 @@ export function About() {
                 </ul>
               </div>
 
-              <div className="pt-6 font-sans text-xs text-white/40 mt-8">
-                {`// SEASON_01 HIGHLIGHTS`}
-              </div>
             </div>
           </div>
 
           {/* Card 3 */}
           <div
             ref={setCardRef}
-            onMouseMove={handleMouseMove}
-            className="md:col-span-12 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 bg-[#0C0C0C]/90 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl relative group overflow-hidden hover:border-orange/60 transition-all duration-500"
+            className="card about-card md:col-span-12 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 relative group transition-all duration-500 hover:[--card-border-color:rgba(243,108,33,0.6)]"
           >
-            {/* Card Hover Spotlight Overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
-              style={{
-                background: "radial-gradient(500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(243,108,33,0.15), transparent 70%)"
-              }}
-            />
+
 
             {/* Card Content (Left Side) */}
-            <div className="relative z-10 space-y-3 md:w-1/2 w-full text-center md:text-left flex flex-col items-center md:items-start">
-              <h3 className="text-xs font-sans uppercase tracking-widest text-orange font-bold">
+            <div className="about-card__content relative z-10 space-y-3 md:w-1/2 w-full text-center md:text-left flex flex-col items-center md:items-start">
+              <h3 className="about-card__header text-xs font-sans uppercase tracking-widest text-orange font-bold">
                 PRODUCTION DESIGN STACK
               </h3>
-              <p className="text-base md:text-lg font-semibold text-white font-sans max-w-sm">
+              <p className="text-base md:text-lg font-semibold text-white font-sans">
                 Equipped with industry-grade tools for brand systems, print production, and photorealistic 3D.
               </p>
             </div>
 
             {/* Tool Tags (Right Side) */}
-            <div className="relative z-10 flex flex-wrap items-center justify-center md:justify-end gap-3 md:w-1/2 w-full">
+            <div className="about-card__tags relative z-10 flex flex-wrap items-center justify-center md:justify-end gap-3 md:w-1/2 w-full">
               {["Illustrator", "Photoshop", "InDesign", "Figma", "Blender", "After Effects", "Framer", "Webflow"].map(tool => (
                 <div 
                   key={tool}

@@ -1,86 +1,61 @@
 "use client";
 
-import { useRef } from "react";
-import { useCursor } from "@/hooks/useCursor";
+import React from 'react';
+import Image from 'next/image';
+import { useSiteConfig } from '../../hooks/useSiteConfig';
+import { SocialLinks } from '../ui/social-links';
+import { SOCIAL_CATALOG, toHref } from './socials';
 
-export function Footer() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const spotlightRef = useCursor(sectionRef);
+export const FULL_SOCIALS = SOCIAL_CATALOG;
+
+interface FooterProps {
+  socials?: typeof SOCIAL_CATALOG;
+  copyright?: string;
+  centered?: boolean;
+}
+
+export function Footer({
+  socials = SOCIAL_CATALOG,
+  copyright = '© 2026 Sanmukh Sai K.',
+  centered = false,
+}: FooterProps) {
+  const { config } = useSiteConfig();
+
+  const links = socials.map(s => ({
+    ...s,
+    href: toHref(s.key, config[s.key] || s.url),
+  }));
 
   return (
-    <footer
-      ref={sectionRef}
-      className="bg-[#0C0C0C] text-white py-16 border-t border-white/10 select-none relative z-10 overflow-hidden w-full"
-    >
-      {/* Global Cursor Spotlight */}
-      <div
-        ref={spotlightRef}
-        className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full pointer-events-none z-10 opacity-0 blur-[90px] -translate-x-1/2 -translate-y-1/2"
-        style={{
-          background: "radial-gradient(circle, rgba(243,108,33,0.18) 0%, rgba(243,108,33,0.06) 45%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="max-w-7xl mx-auto px-6 md:px-8 w-full flex flex-col space-y-12 relative z-20">
-        
-        {/* Primary Footer Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-12 border-b border-white/10">
-          
-          {/* Footer Branding */}
-          <div>
-            <div className="text-2xl font-black text-orange tracking-tighter flex items-center gap-2 font-sans drop-shadow-[0_0_15px_rgba(243,108,33,0.3)]">
-              SANMUKH<span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
+    <footer className="site-footer pb-8">
+      <div className="footer-top ">
+        <div className="footer-inner container-wide border">
+          {links.length > 0 && (
+            <div className={`footer-socials-row${centered ? ' is-centered' : ''}`}>
+              <SocialLinks socials={links} className={centered ? 'is-centered' : ''} />
             </div>
-            <div className="text-xs font-sans text-white/50 tracking-widest uppercase mt-2">
-              {`// DESIGN PORTFOLIO • 2026`}
-            </div>
-          </div>
-
-          {/* Footer Navigation */}
-          <nav className="flex flex-wrap gap-6 md:gap-8 font-sans text-xs uppercase tracking-widest text-white/70">
-            <a href="#home" className="hover:text-orange transition-colors duration-300">Home</a>
-            <a href="#about" className="hover:text-orange transition-colors duration-300">About</a>
-            <a href="#skills" className="hover:text-orange transition-colors duration-300">Skills</a>
-            <a href="#work" className="hover:text-orange transition-colors duration-300">Work</a>
-            <a href="#social" className="hover:text-orange transition-colors duration-300">Social</a>
-            <a href="#contact" className="hover:text-orange transition-colors duration-300">Contact</a>
-          </nav>
+          )}
+          <p className={`footer-copyright${centered ? ' is-centered' : ''}`}>
+            {copyright}
+          </p>
         </div>
-
-        {/* Social / Contact Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 text-xs font-sans text-white/60">
-          
-          {/* Social Links */}
-          <div className="flex flex-wrap gap-6 uppercase tracking-widest">
-            <a href="https://behance.net/saisanmukh" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors duration-300">
-              Behance //
-            </a>
-            <a href="https://linkedin.com/in/sanmukhsai" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors duration-300">
-              LinkedIn //
-            </a>
-            <a href="https://instagram.com/sanmukh.designs" target="_blank" rel="noopener noreferrer" className="hover:text-orange transition-colors duration-300">
-              Instagram //
-            </a>
-          </div>
-
-          {/* Location */}
-          <div className="uppercase tracking-widest text-white/40">
-            LOCATION: RAYAGADA, ODISHA, IN
-          </div>
-        </div>
-
-        {/* Copyright Row */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 border-t border-white/5 text-[11px] font-sans text-white/40 uppercase tracking-widest">
-          <div>
-            © {new Date().getFullYear()} Kollikani Sanmukh Sai. All Rights Reserved.
-          </div>
-          <div className="text-orange/80">
-            DESIGNED FOR THE SHELF, THE SCREEN & THE SCROLL
-          </div>
-        </div>
-
       </div>
+
+      <div className="footer-wordmark" aria-hidden="true">
+        <div className="relative w-full mx-auto my-4 border border-gray-300 p-4">
+          <Image 
+            src="/images/footer-logo.svg" 
+            alt="Sanmukh Logo" 
+            width={1200} 
+            height={300} 
+            className="w-full h-auto object-cover"
+            priority
+          />
+        </div>
+      </div>
+      <span className="visually-hidden">Sanmukh</span>
     </footer>
   );
 }
+
+export default Footer;

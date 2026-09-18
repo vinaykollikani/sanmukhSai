@@ -1,0 +1,489 @@
+/* =============================================
+   TYPOGRAPHY CLASSES
+   ============================================= */
+
+/* Display — large section headings */
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* Editorial — PP Editorial New (serif, italic use cases) */
+.type-editorial {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+/* Eyebrow — section label pill above headings */
+.type-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;  /* 11px */
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Label — UI metadata, tags */
+.type-label {
+  font-family: var(--font-body);
+  font-size: 0.625rem;  /* 10px */
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Meta — fine print, counters */
+.type-meta {
+  font-family: var(--font-body);
+  font-size: 0.75rem;  /* 12px */
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Body — readable paragraph text */
+.type-body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+
+/* Caption — smallest text layer */
+.type-caption {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: var(--color-text-subtle);
+  line-height: 1.5;
+}
+
+/* =============================================
+   EYEBROW / BADGE COMPONENT
+   The consistent section label used site-wide.
+   ============================================= */
+
+/* Badge container */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  background: rgba(0, 0, 0, 0.80);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-accent-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Pulsing orange dot */
+.eyebrow-dot {
+  display: inline-block;
+  width:  6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Coloured label segment */
+.eyebrow-label {
+  color: var(--color-accent);
+}
+
+/* Divider pipe between eyebrow segments */
+.eyebrow-divider {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+/* =============================================
+   SECTION HEADER PATTERN
+   ============================================= */
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.section-description {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  max-width: 32rem;
+  line-height: 1.7;
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+
+/* Base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  padding: 0.75rem 2rem;
+  transition:
+    background var(--duration-normal) var(--ease-standard),
+    color       var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard),
+    opacity     var(--duration-normal) var(--ease-standard),
+    transform   var(--duration-normal) var(--ease-editorial);
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+/* Primary — orange fill */
+.btn-primary {
+  background: var(--color-accent);
+  color:      var(--color-bg-primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.btn-primary:hover {
+  opacity: 0.90;
+  transform: scale(1.04);
+}
+
+/* Secondary — bordered, transparent */
+.btn-secondary {
+  background:   rgba(12, 12, 12, 0.4);
+  border-color: rgba(255, 255, 255, 0.20);
+  color:        var(--color-text-primary);
+  backdrop-filter: blur(8px);
+}
+
+.btn-secondary:hover {
+  background:   rgba(255, 255, 255, 0.08);
+}
+
+/* Ghost — text only */
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text-secondary);
+  padding-inline: 0.5rem;
+}
+
+.btn-ghost:hover {
+  color: var(--color-accent);
+}
+
+/* Icon button — circular */
+.btn-icon {
+  width:  2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+  background:   rgba(0, 0, 0, 0.60);
+  border-color: rgba(255, 255, 255, 0.20);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-primary);
+}
+
+.btn-icon:hover {
+  border-color: var(--color-accent-border);
+  background:   rgba(243, 108, 33, 0.10);
+  color: var(--color-accent);
+  box-shadow: 0 0 15px rgba(243, 108, 33, 0.30);
+}
+
+/* Inline link style */
+.btn-link {
+  background:   transparent;
+  border:       none;
+  color:        var(--color-text-secondary);
+  font-size:    0.875rem;
+  font-weight:  400;
+  letter-spacing: 0;
+  text-transform: none;
+  padding:      0;
+  border-radius: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.btn-link:hover {
+  color: var(--color-accent);
+}
+
+/* =============================================
+   CARDS
+   ============================================= */
+
+.card {
+  position: relative;
+  background-color: #0D0D0D;
+  border-radius: 18px;
+  overflow: hidden;
+  border: none;
+  --card-border-color: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.30) 0%,
+    rgba(255,255,255,0.20) 60%,
+    rgba(255,255,255,0.10) 100%
+  );
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--card-border-color);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  z-index: 10;
+  transition: background var(--duration-slow) var(--ease-editorial);
+}
+
+.card-dark {
+  background-color: #0D0D0D;
+  border-radius: 18px;
+}
+
+.card-bordered {
+  /* Inherits from .card, gradient border applied via ::before */
+}
+
+/* Interactive card — hover lift */
+.card-interactive {
+  transition:
+    transform     var(--duration-slow) var(--ease-editorial),
+    box-shadow    var(--duration-slow) var(--ease-editorial);
+}
+
+.card-interactive:hover {
+  transform:    translateY(-4px);
+  box-shadow:   0 8px 30px rgba(243, 108, 33, 0.15);
+}
+
+.card-interactive:hover::before {
+  background: var(--color-accent);
+}
+
+/* =============================================
+   SPOTLIGHT SYSTEM
+   Positioned by JS; visual styling lives here.
+   ============================================= */
+
+.spotlight {
+  position:       absolute;
+  top:            0;
+  left:           0;
+  width:          600px;
+  height:         600px;
+  border-radius:  50%;
+  pointer-events: none;
+  opacity:        0;
+  filter:         blur(90px);
+  transform:      translate(-50%, -50%);
+  will-change:    transform, opacity;
+}
+
+.spotlight-orange {
+  background: radial-gradient(
+    circle,
+    rgba(243, 108, 33, 0.18)  0%,
+    rgba(243, 108, 33, 0.06) 45%,
+    transparent               70%
+  );
+}
+
+.spotlight-blue {
+  background: radial-gradient(
+    circle,
+    rgba(1, 86, 254, 0.18)  0%,
+    rgba(1, 86, 254, 0.06) 45%,
+    transparent              70%
+  );
+}
+
+/* =============================================
+   AMBIENT GLOW UTILITIES
+   Low-opacity decorative atmosphere layers.
+   ============================================= */
+
+.glow-orange {
+  position:       absolute;
+  border-radius:  50%;
+  pointer-events: none;
+  filter:         blur(160px);
+  background:     rgba(243, 108, 33, 0.10);
+}
+
+.glow-blue {
+  position:       absolute;
+  border-radius:  50%;
+  pointer-events: none;
+  filter:         blur(160px);
+  background:     rgba(1, 86, 254, 0.10);
+}
+
+.glow-center {
+  top:  50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.glow-subtle {
+  opacity: 0.5;
+}
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+
+.nav-link {
+  font-family:    var(--font-body);
+  font-size:      0.875rem;
+  font-weight:    400;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color:          var(--color-text-muted);
+  transition:     color var(--duration-normal) var(--ease-standard);
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content:    '';
+  position:   absolute;
+  bottom:     -2px;
+  left:       0;
+  width:      0;
+  height:     1px;
+  background: var(--color-accent);
+  transition: width var(--duration-slow) var(--ease-editorial);
+}
+
+.nav-link-underline:hover::after {
+  width: 100%;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+
+.site-footer {
+  @apply bg-[#0C0C0C] text-white relative z-10 w-full overflow-hidden flex flex-col justify-between min-h-[60vh] border-t border-white/10;
+}
+
+.footer-top {
+  @apply pt-32 pb-16 px-6 md:px-8 w-full flex-grow flex flex-col justify-center;
+}
+
+.footer-inner {
+  @apply max-w-7xl mx-auto w-full flex flex-col space-y-16;
+}
+
+.footer-socials-row {
+  @apply flex flex-wrap gap-4;
+}
+
+.footer-socials-row.is-centered {
+  @apply justify-center;
+}
+
+.social-links {
+  @apply flex flex-wrap gap-4 md:gap-6;
+}
+
+.social-links.is-centered {
+  @apply justify-center;
+}
+
+.social-link {
+  @apply relative inline-flex items-center gap-2 text-sm font-sans tracking-widest uppercase transition-all duration-300;
+}
+
+.social-link.is-dimmed {
+  @apply opacity-30;
+}
+
+.social-link-name {
+  @apply relative z-10;
+}
+
+.social-icon-stage {
+  @apply absolute left-1/2 -translate-x-1/2 z-20 pointer-events-none;
+}
+
+.brand-tile {
+  @apply flex items-center justify-center w-10 h-10 rounded-full text-white shadow-lg;
+}
+
+.brand-glyph {
+  @apply flex items-center justify-center w-10 h-10 rounded-full bg-[#1C1C1C] text-white shadow-lg;
+}
+
+.brand-letter {
+  @apply font-black text-xl;
+}
+
+.footer-copyright {
+  @apply text-[11px] font-sans text-white/40 uppercase tracking-widest pt-12 border-t border-white/5;
+}
+
+.footer-copyright.is-centered {
+  @apply text-center;
+}
+
+.footer-wordmark {
+  @apply w-full overflow-hidden flex items-end justify-center pointer-events-none leading-none -mb-8 sm:-mb-12 md:-mb-16 lg:-mb-24;
+}
+
+.footer-wordmark-text {
+  @apply font-display font-black text-[20vw] text-white/5 tracking-tighter uppercase whitespace-nowrap drop-shadow-[0_0_30px_rgba(243,108,33,0.1)];
+}
+
