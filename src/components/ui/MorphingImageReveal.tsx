@@ -164,7 +164,7 @@ export function MorphingImageReveal({
   return (
     <div
       ref={containerRef}
-      className={`relative block select-none overflow-hidden rounded-[12px] ${className}`}
+      className={`morph-reveal-container ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -173,7 +173,7 @@ export function MorphingImageReveal({
       <img
         src={revealSrc}
         alt={`${alt} (Reveal)`}
-        className="absolute inset-0 w-full h-full object-cover object-center z-0"
+        className="morph-reveal-layer morph-reveal-under"
         style={{
           transform: `translate(${revealOffset[0]}%, ${revealOffset[1]}%) scale(${revealScale})`,
         }}
@@ -185,7 +185,7 @@ export function MorphingImageReveal({
         ref={baseRef}
         src={baseSrc}
         alt={alt}
-        className="absolute inset-0 w-full h-full object-cover object-center z-[1]"
+        className="morph-reveal-layer morph-reveal-base"
         draggable={false}
       />
     </div>

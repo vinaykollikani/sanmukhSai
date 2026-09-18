@@ -88,28 +88,28 @@ export function WorkArchive({ projects }: WorkArchiveProps) {
   }, [activeCategory]);
 
   return (
-    <div className="relative min-h-screen pt-32 pb-24 bg-background">
+    <div className="work-archive-page">
       <AtmosphericBg />
-
-      <div className="container-wide relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+      <div className="container-wide">
+        <div className="work-archive-container">
           
-          {/* Left Sidebar Navigation */}
-          <aside className="w-full lg:w-1/4 shrink-0">
-            <CategoryNav active={activeCategory} onChange={handleCategoryChange} counts={counts} />
+          {/* Sidebar */}
+          <aside className="work-archive-sidebar">
+            <CategoryNav active={activeCategory} onChange={(k) => handleCategoryChange(k as CategoryKey)} counts={counts} />
           </aside>
 
           {/* Right Project Grid */}
-          <main className="w-full lg:w-3/4 flex-1">
+          <main className="work-archive-main">
+            
             {filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-32 opacity-50">
-                <p className="text-xl font-bold tracking-tight text-white mb-2">No projects found.</p>
-                <p className="text-sm font-display uppercase tracking-widest">New work coming soon.</p>
+              <div className="work-archive-empty">
+                <p className="work-archive-empty-title">No projects found.</p>
+                <p className="work-archive-empty-text">New work coming soon.</p>
               </div>
             ) : (
               <div 
                 ref={gridRef}
-                className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-12"
+                className="work-archive-grid"
               >
                 {filtered.map((project) => (
                   <div key={project.slug} className="wa-card">

@@ -64,16 +64,16 @@ export function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0C0C0C]"
+      className="preloader-container"
     >
-      <div className="flex items-center gap-4">
+      <div className="preloader-content">
         <div 
           ref={dotRef}
-          className="w-3 h-3 rounded-full bg-orange opacity-0"
+          className="preloader-dot"
         />
         <h1 
           ref={textRef}
-          className="text-white font-sans text-sm md:text-base font-semibold tracking-[0.2em] uppercase opacity-0"
+          className="preloader-text"
         >
           Sanmukh Sai
         </h1>

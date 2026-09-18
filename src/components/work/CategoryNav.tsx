@@ -12,36 +12,41 @@ export const CATEGORIES = [
 export type CategoryKey = (typeof CATEGORIES)[number]["key"];
 
 interface CategoryNavProps {
-  active: CategoryKey;
-  onChange: (key: CategoryKey) => void;
+  active: CategoryKey | null;
+  onChange: (key: CategoryKey | null) => void;
   counts?: Record<CategoryKey, number>;
 }
 
 export function CategoryNav({ active, onChange, counts }: CategoryNavProps) {
   return (
-    <nav aria-label="Filter work by category" className="flex flex-col gap-4 sticky top-32">
-      <h2 className="text-sm font-bold tracking-[0.2em] text-white/50 mb-4">WORK</h2>
-      <ul className="flex flex-col gap-3" role="list">
-        {CATEGORIES.map(({ key, label }) => {
-          const isActive = active === key;
-          const count = counts?.[key];
-          
-          return (
-            <li key={key}>
-              <button
-                type="button"
-                className={`text-left text-sm font-bold tracking-widest uppercase transition-colors duration-300 ${
-                  isActive ? "text-orange" : "text-white hover:text-orange/70"
-                }`}
-                data-active={isActive ? "true" : "false"}
-                aria-pressed={isActive}
-                onClick={() => onChange(key as CategoryKey)}
-              >
-                {label} {count !== undefined && <span className="opacity-50 ml-1">[{count.toString().padStart(2, '0')}]</span>}
-              </button>
-            </li>
-          );
-        })}
+    <nav aria-label="Filter work by category" className="category-nav">
+      <h2 className="category-nav-heading">WORK</h2>
+      <ul className="category-nav-list" role="list">
+        <li>
+          <button
+            type="button"
+            onClick={() => onChange(null)}
+            className={`category-nav-btn ${active === null ? 'is-active' : ''}`}
+            aria-current={active === null ? 'page' : undefined}
+          >
+            All Projects
+          </button>
+        </li>
+        {CATEGORIES.filter(c => c.key !== "ALL").map(category => (
+          <li key={category.key}>
+            <button
+              type="button"
+              onClick={() => onChange(category.key)}
+              className={`category-nav-btn ${active === category.key ? 'is-active' : ''}`}
+              aria-current={active === category.key ? 'page' : undefined}
+            >
+              {category.label} 
+              {counts && counts[category.key] !== undefined && (
+                <span className="category-nav-count">[{counts[category.key].toString().padStart(2, '0')}]</span>
+              )}
+            </button>
+          </li>
+        ))}
       </ul>
     </nav>
   );

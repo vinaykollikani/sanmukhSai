@@ -208,32 +208,28 @@ export function SocialGallery({ posts }: SocialGalleryProps) {
   return (
     <main
       ref={containerRef}
-      className="min-h-screen bg-[#0C0C0C] text-white overflow-hidden relative flex flex-col justify-center selection:bg-orange selection:text-[#0C0C0C]"
+      className="social-gallery-page"
     >
       {/* Top Navigation */}
-      <nav className="absolute top-0 left-0 right-0 z-50 w-full px-6 md:px-16 py-6 flex items-center justify-between pointer-events-none">
-        <Link
-          href="/#social"
-          className="group pointer-events-auto flex items-center gap-2 text-[10px] font-sans text-white/50 hover:text-orange uppercase tracking-widest transition-colors duration-300"
-        >
-          <span className="group-hover:-translate-x-1 transition-transform duration-300">←</span> BACK TO HOME
+      <nav className="social-gallery-nav">
+        <Link href="/" className="social-gallery-back">
+          <span className="social-gallery-back-icon">←</span> BACK TO HOME
         </Link>
-        <Link href="/" className="pointer-events-auto">
-          <div className="text-xl font-black text-orange tracking-tighter flex items-center gap-1.5 drop-shadow-[0_0_10px_rgba(243,108,33,0.3)]">
-            SANMUKH<span className="w-1.5 h-1.5 rounded-full bg-white inline-block" />
-          </div>
+        <Link href="/" className="social-gallery-brand">
+          SANMUKH<span className="social-gallery-brand-dot" />
         </Link>
       </nav>
 
-      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-5">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-black text-white whitespace-nowrap">
+      <div className="social-gallery-bg-layer">
+        <div className="social-gallery-bg-text">
           SOCIAL
         </div>
       </div>
 
-      <div className="flex flex-col items-center z-10 w-full pb-24 md:pb-12">
-        <div
-          className="relative w-full"
+      <div className="social-gallery-viewport">
+        {/* Gallery Track */}
+        <div 
+          className="social-gallery-track"
           style={{ height: `${CARD_H + 40}px` }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -251,7 +247,7 @@ export function SocialGallery({ posts }: SocialGalleryProps) {
               <div
                 key={domIdx}
                 ref={(el) => { cardRefs.current[domIdx] = el; }}
-                className="absolute rounded-[18px] overflow-hidden bg-[#161616] cursor-pointer group"
+                className="social-gallery-item"
                 onClick={() => {
                   const vp = visualOrder.current.indexOf(domIdx);
                   if (vp === 0 || vp === 1) navigate(-1);
@@ -272,14 +268,14 @@ export function SocialGallery({ posts }: SocialGalleryProps) {
                 <img
                   ref={(el) => { imgRefs.current[domIdx] = el; }}
                   alt="Social media post"
-                  className="w-full h-full object-cover object-center block transition-transform duration-700 group-hover:scale-105"
+                  className="social-gallery-item-img"
                   draggable={false}
                 />
                 
                 {/* Central Overlay logic (Only active for the center card) */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  {/* The visualOrder check handles this dynamically, but we add a generic play button styling */}
-                  <div className="w-12 h-12 rounded-full bg-black/60 backdrop-blur-md flex items-center justify-center text-white/90 shadow-[0_0_20px_rgba(243,108,33,0.5)]">
+                <div className="social-gallery-item-overlay">
+                  {/* Play Icon */}
+                  <div className="social-gallery-item-play">
                     <Play fill="currentColor" size={18} className="ml-1" />
                   </div>
                 </div>
@@ -289,11 +285,11 @@ export function SocialGallery({ posts }: SocialGalleryProps) {
         </div>
         
         {/* Navigation Controls */}
-        <div className="relative z-20 flex items-center justify-center gap-8 mt-12">
+        <div className="social-gallery-controls">
           <button
             onClick={() => navigate(-1)}
             aria-label="Previous post"
-            className="w-12 h-12 rounded-full border border-white/20 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/45 transition-all duration-300 hover:border-orange/60 hover:text-orange hover:bg-orange/10 hover:shadow-[0_0_24px_rgba(243,108,33,0.22)]"
+            className="social-gallery-btn"
           >
             <ChevronLeft size={20} strokeWidth={2} />
           </button>
@@ -301,7 +297,7 @@ export function SocialGallery({ posts }: SocialGalleryProps) {
           <button
             onClick={() => navigate(1)}
             aria-label="Next post"
-            className="w-12 h-12 rounded-full border border-white/20 bg-black/40 backdrop-blur-md flex items-center justify-center text-white/45 transition-all duration-300 hover:border-orange/60 hover:text-orange hover:bg-orange/10 hover:shadow-[0_0_24px_rgba(243,108,33,0.22)]"
+            className="social-gallery-btn"
           >
             <ChevronRight size={20} strokeWidth={2} />
           </button>

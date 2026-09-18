@@ -13,7 +13,7 @@ interface WorkArchiveCardProps {
 export function WorkArchiveCard({ project }: WorkArchiveCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const arrowRef = useRef<SVGSVGElement>(null);
+  const arrowRef = useRef<HTMLSpanElement>(null);
 
   useGSAP(() => {
     const card = cardRef.current;
@@ -48,41 +48,28 @@ export function WorkArchiveCard({ project }: WorkArchiveCardProps) {
     <Link
       ref={cardRef}
       href={`/work/${project.slug}`}
-      className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange rounded-xl"
+      className="work-archive-card"
     >
-      <div className="card relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden group-hover:[--card-border-color:rgba(243,108,33,0.5)] transition-colors duration-300">
+      <div className="work-archive-card-image-wrap card-interactive card-bordered">
         <img
           ref={imgRef}
           src={project.cover}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="work-archive-card-image"
         />
       </div>
       
-      <div className="flex flex-col gap-1 px-1">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="text-lg font-black tracking-tight text-white group-hover:text-orange transition-colors duration-300">
+      <div className="work-archive-card-content">
+        <div className="work-archive-card-header">
+          <h3 className="work-archive-card-title">
             {project.title}
           </h3>
-          <svg 
-            ref={arrowRef}
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            className="text-white/40 group-hover:text-orange transition-colors duration-300 mt-1 shrink-0"
-          >
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
+          <span ref={arrowRef} className="work-archive-card-arrow">→</span>
         </div>
-        <div className="flex items-center gap-2 text-xs font-bold text-white/50 uppercase tracking-widest">
+        
+        <div className="work-archive-card-meta">
           <span>{project.category}</span>
-          <span className="w-1 h-1 rounded-full bg-white/20 group-hover:bg-orange transition-colors duration-300" />
+          <span className="work-archive-card-dot" />
           <span>{project.year}</span>
         </div>
       </div>

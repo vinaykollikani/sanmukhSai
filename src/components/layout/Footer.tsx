@@ -27,9 +27,9 @@ export function Footer({
   }));
 
   return (
-    <footer className="site-footer pb-8">
-      <div className="footer-top ">
-        <div className="footer-inner container-wide border">
+    <footer className="site-footer">
+      <div className="footer-top">
+        <div className="footer-inner container-wide">
           {links.length > 0 && (
             <div className={`footer-socials-row${centered ? ' is-centered' : ''}`}>
               <SocialLinks socials={links} className={centered ? 'is-centered' : ''} />
@@ -42,13 +42,13 @@ export function Footer({
       </div>
 
       <div className="footer-wordmark" aria-hidden="true">
-        <div className="relative w-full mx-auto my-4 border border-gray-300 p-4">
+        <div className="footer-wordmark-inner">
           <Image 
             src="/images/footer-logo.svg" 
             alt="Sanmukh Logo" 
             width={1200} 
             height={300} 
-            className="w-full h-auto object-cover"
+            className="footer-wordmark-img"
             priority
           />
         </div>

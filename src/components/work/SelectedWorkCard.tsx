@@ -72,17 +72,17 @@ export function SelectedWorkCard({ project, className = "" }: SelectedWorkCardPr
     <Link
       ref={cardRef}
       href={`/work/${project.slug}`}
-      className={`card group relative flex flex-col overflow-hidden transition-colors duration-500 hover:[--card-border-color:rgba(255,255,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange ${className}`}
+      className={`card group work-selected-card ${className}`}
     >
       {/* Artwork Container - Fills the card entirely */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="work-selected-bg">
         {/* IMAGE B (Secondary/Hover Image) - Bottom Layer */}
         <img
           ref={bottomImageRef}
           src={secondaryImage}
           alt=""
           role="presentation"
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="work-selected-img"
         />
         
         {/* IMAGE A (Cover Image) - Top Layer */}
@@ -90,21 +90,21 @@ export function SelectedWorkCard({ project, className = "" }: SelectedWorkCardPr
           ref={topImageRef}
           src={project.cover}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover object-center"
+          className="work-selected-img"
         />
         
         {/* Very subtle gradient overlay to ensure text legibility if needed, but kept minimal per instructions */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-transparent opacity-60" />
+        <div className="work-selected-overlay" />
       </div>
 
       {/* Compact Information Box - Sits on top of artwork */}
-      <div className="relative z-10 p-5 md:p-6 flex flex-col items-start gap-1">
-        <h3 className="text-white font-black text-lg md:text-xl tracking-tight leading-none drop-shadow-md">
+      <div className="work-selected-content">
+        <h3 className="work-selected-title">
           {project.title}
         </h3>
-        <div className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-white/80 uppercase tracking-widest drop-shadow-md">
+        <div className="work-selected-meta">
           <span>{project.category}</span>
-          <span className="w-1 h-1 rounded-full bg-orange" />
+          <span className="work-selected-dot" />
           <span>{project.year}</span>
         </div>
       </div>

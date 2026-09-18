@@ -1,7 +1,17 @@
-/* =============================================
-   TAILWIND IMPORT
-   ============================================= */
-@import "tailwindcss";
+
+
+@import "../styles/components.css";
+@import "../styles/utilities.css";
+
+@import "../styles/sections/hero.css";
+@import "../styles/sections/work.css";
+@import "../styles/sections/social.css";
+@import "../styles/sections/about.css";
+@import "../styles/sections/skills.css";
+@import "../styles/sections/tools.css";
+@import "../styles/sections/experience.css";
+@import "../styles/sections/testimonials.css";
+@import "../styles/sections/contact.css";
 
 * {
   box-sizing: border-box;
@@ -203,22 +213,6 @@
   --z-preloader: 9999;
 }
 
-/* ── Tailwind Theme Bridge ── */
-@theme inline {
-  --color-background: var(--color-bg-primary);
-  --color-foreground: var(--color-text-primary);
-  --color-secondary: var(--color-bg-secondary);
-  --color-tertiary: var(--color-bg-tertiary);
-  --color-surface: var(--color-bg-surface);
-  --color-card: var(--color-bg-card);
-  --color-deep-red: var(--color-bg-deep-red);
-  --color-blue: var(--color-accent-blue);
-  --color-orange: var(--color-accent);
-
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-  --font-display-3: var(--font-editorial);
-}
 
 /* =============================================
    GLOBAL RESET
@@ -256,20 +250,27 @@ textarea {
    ============================================= */
 
 html {
+  height: 100%;
   scroll-behavior: smooth;
   /* Prevent horizontal overflow caused by wide decorative layers */
   overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
   font-family: var(--font-body);
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* Prevent body-level horizontal scroll without hiding positioned children */
-  overflow-x: clip;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
 }
 
 /* Headings use the display font */
@@ -378,13 +379,12 @@ button {
    ============================================= */
 
 /* Primary responsive container system */
-@utility container-base {
+.container-base {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 24px;
   padding-right: 24px;
-  border: 0.5px solid green;
 
   @media (min-width: 640px) {
     padding-left: clamp(24px, 4vw, 32px);
@@ -407,24 +407,136 @@ button {
   }
 }
 
-@utility container-wide {
-  @apply container-base;
+.container-wide {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
   max-width: 1440px;
 }
+@media (min-width: 640px) {
+  .container-wide {
+    padding-left: clamp(24px, 4vw, 32px);
+    padding-right: clamp(24px, 4vw, 32px);
+  }
+}
+@media (min-width: 768px) {
+  .container-wide {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-wide {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1440px) {
+  .container-wide {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
 
-@utility container-xl {
-  @apply container-base;
+.container-xl {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
   max-width: 1280px;
 }
-
-@utility container-lg {
-  @apply container-base;
-  max-width: 1120px;
+@media (min-width: 640px) {
+  .container-xl {
+    padding-left: clamp(24px, 4vw, 32px);
+    padding-right: clamp(24px, 4vw, 32px);
+  }
+}
+@media (min-width: 768px) {
+  .container-xl {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-xl {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1440px) {
+  .container-xl {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
 }
 
-@utility container-md {
-  @apply container-base;
+.container-lg {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  max-width: 1120px;
+}
+@media (min-width: 640px) {
+  .container-lg {
+    padding-left: clamp(24px, 4vw, 32px);
+    padding-right: clamp(24px, 4vw, 32px);
+  }
+}
+@media (min-width: 768px) {
+  .container-lg {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-lg {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1440px) {
+  .container-lg {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+}
+
+.container-md {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
   max-width: 960px;
+}
+@media (min-width: 640px) {
+  .container-md {
+    padding-left: clamp(24px, 4vw, 32px);
+    padding-right: clamp(24px, 4vw, 32px);
+  }
+}
+@media (min-width: 768px) {
+  .container-md {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .container-md {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+@media (min-width: 1440px) {
+  .container-md {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
 }
 
 /* =============================================
@@ -449,18 +561,6 @@ button {
   padding-block: var(--section-space-xl);
 }
 
-@import "../styles/components.css";
-@import "../styles/utilities.css";
-
-@import "../styles/sections/hero.css";
-@import "../styles/sections/work.css";
-@import "../styles/sections/social.css";
-@import "../styles/sections/about.css";
-@import "../styles/sections/skills.css";
-@import "../styles/sections/tools.css";
-@import "../styles/sections/experience.css";
-@import "../styles/sections/testimonials.css";
-@import "../styles/sections/contact.css";
 
 /* =============================================
    ACCESSIBILITY

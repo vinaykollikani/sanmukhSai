@@ -30,23 +30,23 @@ export function Navbar() {
   return (
     <header 
       ref={navRef}
-      className="navbar fixed top-0 left-0 w-full z-[100] bg-background/80 backdrop-blur-md border-b border-white/10 opacity-0"
+      className="navbar opacity-0"
     >
-      <div className="navbar__inner container-wide h-20 flex items-center justify-between">
+      <div className="navbar-inner container-wide">
         
         {/* Logo */}
-        <Link href="/" className="navbar__logo flex items-baseline gap-1 group">
-          <span className="font-display text-2xl font-bold tracking-widest">SANMUKH</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-orange transition-colors duration-300"></span>
+        <Link href="/" className="navbar-logo group">
+          <span className="navbar-logo-text">SANMUKH</span>
+          <span className="navbar-logo-dot"></span>
         </Link>
         
         {/* Desktop Navigation */}
-        <nav className="navbar__menu hidden md:flex items-center gap-8">
+        <nav className="navbar-menu">
           {fallbackNav.map((item) => (
             <Link 
               key={item.label} 
               href={item.href}
-              className="navbar__link text-sm uppercase tracking-widest text-white/70 hover:text-orange transition-colors duration-300"
+              className="nav-link nav-link-underline"
             >
               {item.label}
             </Link>
@@ -54,18 +54,18 @@ export function Navbar() {
         </nav>
         
         {/* CTA */}
-        <div className="navbar__actions hidden md:block">
+        <div className="navbar-actions">
           <Link 
             href="#contact"
-            className="btn btn-secondary px-6 py-2.5 rounded-full border border-white/20 text-sm uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300"
+            className="btn btn-secondary btn-navbar"
           >
             Download CV
           </Link>
         </div>
         
         {/* Mobile Menu Placeholder (Hidden on desktop) */}
-        <div className="navbar__mobile-toggle md:hidden flex items-center">
-          <button className="text-sm uppercase tracking-widest text-white/70">Menu</button>
+        <div className="navbar-mobile-toggle">
+          <button className="nav-link">Menu</button>
         </div>
         
       </div>

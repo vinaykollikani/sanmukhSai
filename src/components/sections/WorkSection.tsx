@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { Project } from "@/types/project";
-import { useCursor } from "@/hooks/useCursor";
+
 import { SelectedWorkCard } from "@/components/work/SelectedWorkCard";
 
 if (typeof window !== "undefined") {
@@ -28,7 +28,7 @@ interface WorkSectionProps {
 
 export function WorkSection({ projects }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const spotlightRef = useCursor(sectionRef);
+
 
   useGSAP(() => {
     // Fade in elements logic can be handled by ScrollTrigger or IntersectionObserver as before
@@ -60,45 +60,42 @@ export function WorkSection({ projects }: WorkSectionProps) {
 
   // Bento grid layout classes for 6 items
   const bentoClasses = [
-    "col-span-1 md:col-span-2 row-span-2 min-h-[400px] md:min-h-[500px]", // Item 1: Large featured
-    "col-span-1 row-span-1 min-h-[250px] md:min-h-[300px]",              // Item 2: Small/Medium
-    "col-span-1 row-span-1 min-h-[250px] md:min-h-[300px]",              // Item 3: Small/Medium
-    "col-span-1 row-span-2 md:row-span-1 min-h-[350px] md:min-h-[300px]",// Item 4: Portrait on mobile, landscape on desktop
-    "col-span-1 md:col-span-2 row-span-1 min-h-[350px] md:min-h-[300px]",// Item 5: Landscape
-    "col-span-1 md:col-span-3 row-span-1 min-h-[300px] md:min-h-[400px]",// Item 6: Full width bottom
+    "bento-1", // Item 1: Large featured
+    "bento-2", // Item 2: Small/Medium
+    "bento-3", // Item 3: Small/Medium
+    "bento-4", // Item 4: Portrait on mobile, landscape on desktop
+    "bento-5", // Item 5: Landscape
+    "bento-6", // Item 6: Full width bottom
   ];
 
   return (
     <section
       id="work"
       ref={sectionRef}
-      className="section section--work relative w-full py-32 text-foreground overflow-hidden select-none"
+      className="section section--work"
     >
-
-
-      {/* Content Container */}
-      <div className="container-wide relative z-20 space-y-16">
+      <div className="container-wide work-container">
         {/* Header */}
-        <header className="section-header max-w-4xl">
+        <header className="section-header work-header">
           <div className="ws-fade-up eyebrow mb-6">
             <span className="eyebrow-dot" />
-            <span className="eyebrow-label text-white/50 tracking-[0.2em]">SELECTED WORK</span>
+            <span className="eyebrow-label">SELECTED WORK</span>
           </div>
 
-          <h2 className="ws-fade-up section-heading text-4xl md:text-6xl font-black font-display tracking-tight text-white leading-[1.1]">
+          <h2 className="ws-fade-up section-heading work-heading">
             THIS IS A CURATED SHOWCASE.
           </h2>
         </header>
 
         {/* Bento Project Grid */}
-        <div className="work-bento-grid grid grid-cols-1 md:grid-cols-3 gap-[4px] md:gap-2 auto-rows-[minmax(0,1fr)]">
+        <div className="work-bento-grid">
           {orderedProjects.map((project, index) => {
             const layoutClass = bentoClasses[index % bentoClasses.length];
             
             return (
               <div 
                 key={project.slug} 
-                className={`ws-fade-up w-full h-full ${layoutClass}`}
+                className={`ws-fade-up bento-item ${layoutClass}`}
                 style={{ animationDelay: `${index * 80}ms` }}
               >
                 <SelectedWorkCard project={project} className="w-full h-full" />
@@ -108,14 +105,14 @@ export function WorkSection({ projects }: WorkSectionProps) {
         </div>
 
         {/* View All Footer */}
-        <div className="ws-fade-up flex justify-center md:justify-end pt-8">
+        <div className="ws-fade-up work-view-all">
           <Link 
             href="/work"
-            className="group flex items-center gap-3 text-sm font-bold uppercase tracking-widest text-white/70 hover:text-orange transition-colors"
+            className="work-link"
           >
             <span>VIEW ALL WORK</span>
-            <span className="w-8 h-[1px] bg-white/30 group-hover:bg-orange transition-colors" />
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1">
+            <span className="work-link-line" />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="work-link-icon">
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>

@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useCursor } from "@/hooks/useCursor";
 import { Tool } from "@/types/tool";
 
 if (typeof window !== "undefined") {
@@ -32,8 +31,8 @@ const getToolLogoConfig = (title: string) => {
 const ToolLogo = ({ title }: { title: string }) => {
   const { abrv, color } = getToolLogoConfig(title);
   return (
-    <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] group-hover:border-orange/40 transition-all duration-500">
-      <span className={`text-xl font-black tracking-tight ${color}`}>
+    <div className="tool-card-icon-wrapper">
+      <span className={`tool-card-icon ${color}`}>
         {abrv}
       </span>
     </div>
@@ -42,31 +41,31 @@ const ToolLogo = ({ title }: { title: string }) => {
 
 const ToolCard = ({ tool }: { tool: Tool }) => {
   return (
-    <article className="card tool-card w-full h-full transition-all duration-500 group relative z-10 p-7 flex flex-col hover:scale-[1.04] hover:[--card-border-color:rgba(243,108,33,1)] hover:shadow-[0_35px_80px_rgba(243,108,33,0.35)] hover:-translate-y-2">
-      <div className="tool-card__header flex items-start justify-between gap-6">
+    <article className="card tool-card">
+      <div className="tool-card-header">
         <div>
-          <h4 className="tool-card__category text-[11px] font-sans uppercase tracking-widest text-white/40 mb-2">
+          <h4 className="tool-card-category">
             {tool.category}
           </h4>
-          <h3 className="tool-card__title text-2xl font-black text-white tracking-tight leading-tight group-hover:text-orange transition-colors duration-300">
+          <h3 className="tool-card-title">
             {tool.title}
           </h3>
         </div>
         <ToolLogo title={tool.title} />
       </div>
 
-      <div className="tool-card__content mt-5">
-        <p className="tool-card__description text-xs text-white/70 font-light leading-relaxed line-clamp-2 font-sans">
+      <div className="tool-card-content">
+        <p className="tool-card-description">
           {tool.description}
         </p>
       </div>
 
-      <div className="tool-card__meta mt-auto pt-4 border-t border-white/10">
-        <div className="tool-card__tags flex flex-wrap gap-1.5 pr-20">
+      <div className="tool-card-meta">
+        <div className="tool-card-tags">
           {tool.tags.map((tag) => (
             <span
               key={tag}
-              className="text-[10px] font-sans text-white/70 bg-white/5 px-2 py-0.5 rounded"
+              className="tool-card-tag"
             >
               {tag}
             </span>
@@ -75,11 +74,11 @@ const ToolCard = ({ tool }: { tool: Tool }) => {
       </div>
 
       {tool.featured && (
-        <div className="absolute bottom-6 right-6 flex flex-col items-center gap-2">
-          <span className="text-[9px] font-sans tracking-widest uppercase text-orange">
-            FEATURED
+        <div className="tool-card-indicator">
+          <span className="tool-card-indicator-text">
+            OPEN
           </span>
-          <div className="w-2 h-2 rounded-full bg-orange shadow-[0_0_15px_#F36C21]" />
+          <div className="tool-card-dot" />
         </div>
       )}
     </article>
@@ -203,14 +202,14 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
     <section
       id="tools"
       ref={containerRef}
-      className="section section--tools  min-h-[100svh] md:min-h-screen relative font-sans overflow-hidden md:overflow-visible text-white w-full flex flex-col pt-24 pb-20 md:pt-32 md:pb-24 select-none"
+      className="section section--tools"
     >
 
 
       {/* Section Header */}
-      <header className="section-header relative w-full z-20 pointer-events-none mb-12 md:mb-20 lg:mb-24">
+      <header className="tools-header-wrapper">
         <div className="container-wide">
-          <div className="flex flex-col items-start space-y-4">
+          <div className="tools-header-inner">
             <div className="eyebrow pointer-events-auto">
               <span className="eyebrow-dot" />
               <span className="eyebrow-label">SOFTWARE & TOOLS</span>
@@ -224,15 +223,15 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
 
 
       {/* Main Folder Stage (Desktop Only) */}
-      <div className="tools-stage relative w-full h-[600px] md:h-[760px] hidden md:flex items-center justify-center perspective-[2000px] z-10">
-        <div className="relative w-0 h-0 transform-style-3d">
+      <div className="tools-stage">
+        <div className="tools-stage-inner">
           {/* Folder Back */}
           <div
             ref={folderBackRef}
-            className="tools-folder absolute w-[85vw] md:w-[32vw] max-w-[380px] aspect-video  rounded-[24px] border border-orange/40 shadow-[0_20px_50px_rgba(243,108,33,0.25)] flex items-center justify-center z-[5]"
+            className="tools-folder"
           >
-            <div className="absolute -top-6 left-6 w-32 h-8  rounded-t-xl border-t border-orange/30" />
-            <span className="relative z-10 text-orange font-sans font-black text-2xl tracking-widest uppercase opacity-60">
+            <div className="tools-folder-tab" />
+            <span className="tools-folder-text">
               TOOLS_ARCHIVE
             </span>
           </div>
@@ -244,7 +243,7 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
               ref={(el) => {
                 desktopCardsRef.current[i] = el;
               }}
-              className="hidden md:block absolute w-[80vw] md:w-[33vw] max-w-[380px] aspect-[16/10] will-change-transform"
+              className="tools-laptop-screen"
               style={{ zIndex: 10 + i }}
             >
               <ToolCard tool={tool} />
@@ -254,19 +253,19 @@ export function ToolsSection({ tools }: ToolsSectionProps) {
           {/* Folder Front Flap */}
           <div
             ref={folderFrontRef}
-            className="absolute w-[85vw] md:w-[32vw] max-w-[380px] aspect-video pointer-events-none will-change-transform z-[60]"
+            className="tools-laptop-keyboard"
           >
-            <div className="absolute bottom-0 w-full h-[85%] bg-[#141414] rounded-b-[24px] rounded-t-md shadow-[0_-5px_20px_rgba(0,0,0,0.8)] flex flex-col justify-end p-6 border-t border-orange/40">
-              <div className="w-20 h-1.5 bg-white/20 rounded-full mx-auto mb-2" />
+            <div className="tools-laptop-base">
+              <div className="tools-laptop-trackpad" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Mobile Grid */}
-      <div className="tools-grid md:hidden container-wide grid grid-cols-1 gap-6 z-20 mt-24 pb-32">
+      <div className="tools-grid-mobile container-wide">
         {tools.map((tool) => (
-          <div key={`mobile-${tool.id}`} className="w-full relative z-10">
+          <div key={`mobile-${tool.id}`} className="tools-grid-mobile-item">
             <ToolCard tool={tool} />
           </div>
         ))}

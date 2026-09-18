@@ -4,7 +4,6 @@ import { useRef, useState, FormEvent, ChangeEvent } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useCursor } from "@/hooks/useCursor";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -91,35 +90,34 @@ export function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="section section--contact  w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 border-t border-white/10 select-none"
+      className="section section--contact"
     >
 
-      {/* Giant Background CONTACT Typography */}
-      <div className="absolute inset-0 flex flex-col items-center pt-16 md:pt-12 opacity-10 pointer-events-none z-0 overflow-hidden">
-        <div ref={textRef} className="text-[20vw] leading-[0.75] font-black uppercase tracking-tighter text-orange scale-y-[1.6] origin-top font-sans">
+      <div className="contact-bg-text-wrapper">
+        <div ref={textRef} className="contact-bg-text">
           CONTACT
         </div>
       </div>
 
       {/* Main Content Container */}
-      <div className="container-wide relative z-10 w-full flex justify-end items-end">
+      <div className="container-wide contact-container">
         {/* Contact Panel */}
         <div
           ref={panelRef}
-          className="contact-panel bg-background/95 backdrop-blur-2xl border-t border-l border-white/15 w-full md:w-[90%] lg:w-[82%] p-8 md:p-16 text-white flex flex-col justify-between rounded-tl-[3rem] shadow-[0_-25px_60px_rgba(0,0,0,0.9)] relative overflow-hidden"
+          className="contact-panel"
         >
 
 
           {/* Header */}
-          <header className="contact-header flex flex-col items-start space-y-4 mb-12 md:mb-16">
-            <div className="flex w-full items-center justify-between">
+          <header className="contact-header">
+            <div className="contact-header-top">
               <div className="eyebrow">
                 <span className="eyebrow-dot" />
                 <span className="eyebrow-label">CONTACT</span>
                 <span className="eyebrow-divider">|</span>
                 <span className="font-bold">GET IN TOUCH</span>
               </div>
-              <div className="hidden md:block text-white/40 font-sans text-xs tracking-widest mt-2 md:mt-0">
+              <div className="contact-header-subtitle">
                 {`// LET'S BUILD THE THING PEOPLE WILL PICK UP`}
               </div>
             </div>
@@ -128,17 +126,17 @@ export function Contact() {
             </h2>
           </header>
 
-          <p className="text-white/60 text-sm font-light mb-10 max-w-md font-sans leading-relaxed">
+          <p className="contact-description">
             Tell me about the product, the timeline, and where it needs to show up. I reply within 24 hours.
           </p>
 
-          <form onSubmit={handleSubmit} className="contact-form flex flex-col gap-12 md:gap-16 w-full">
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
+          <form onSubmit={handleSubmit} className="contact-form">
+            <div className="contact-form-grid">
               
               {/* Left Column */}
-              <div className="flex flex-col gap-8 w-full md:w-1/2">
-                <div className="contact-field relative">
-                  <label htmlFor="name" className="contact-field__label sr-only">Your Name</label>
+              <div className="contact-form-col">
+                <div className="form-field">
+                  <label htmlFor="name" className="form-label">Your Name</label>
                   <input
                     id="name"
                     type="text"
@@ -146,12 +144,12 @@ export function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your Name"
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors"
+                    className="form-input"
                   />
                 </div>
                 
-                <div className="contact-field relative">
-                  <label htmlFor="email" className="contact-field__label sr-only">Email Address</label>
+                <div className="form-field">
+                  <label htmlFor="email" className="form-label">Email Address</label>
                   <input
                     id="email"
                     type="email"
@@ -159,75 +157,75 @@ export function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Email Address"
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors"
+                    className="form-input"
                   />
                 </div>
 
-                <div className="contact-field relative">
-                  <label htmlFor="company" className="contact-field__label sr-only">Company / Brand</label>
+                <div className="form-field">
+                  <label htmlFor="company" className="form-label">Company / Brand</label>
                   <input
                     id="company"
                     type="text"
                     value={formData.company}
                     onChange={handleChange}
                     placeholder="Company / Brand"
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors"
+                    className="form-input"
                   />
                 </div>
 
-                <div className="contact-field relative">
-                  <label htmlFor="projectType" className="contact-field__label sr-only">Project Type</label>
+                <div className="form-field">
+                  <label htmlFor="projectType" className="form-label">Project Type</label>
                   <select
                     id="projectType"
                     value={formData.projectType}
                     onChange={handleChange}
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white/70 appearance-none rounded-none outline-none focus:border-orange transition-colors cursor-pointer"
+                    className="form-select"
                   >
-                    <option value="" disabled className="bg-[#1a1a1a]">Project Type</option>
-                    <option value="Brand Identity" className="bg-[#1a1a1a]">Brand Identity</option>
-                    <option value="Packaging" className="bg-[#1a1a1a]">Packaging</option>
-                    <option value="3D Visualisation" className="bg-[#1a1a1a]">3D Visualisation</option>
-                    <option value="Multiple" className="bg-[#1a1a1a]">Multiple Disciplines</option>
-                    <option value="Not Sure" className="bg-[#1a1a1a]">Not Sure Yet</option>
+                    <option value="" disabled>Project Type</option>
+                    <option value="Brand Identity">Brand Identity</option>
+                    <option value="Packaging">Packaging</option>
+                    <option value="3D Visualisation">3D Visualisation</option>
+                    <option value="Multiple">Multiple Disciplines</option>
+                    <option value="Not Sure">Not Sure Yet</option>
                   </select>
                 </div>
               </div>
 
               {/* Right Column */}
-              <div className="flex flex-col gap-8 w-full md:w-1/2">
-                <div className="contact-field relative">
-                  <label htmlFor="budget" className="contact-field__label sr-only">Budget Range (₹)</label>
+              <div className="contact-form-col textarea-col">
+                <div className="form-field">
+                  <label htmlFor="budget" className="form-label">Budget Range (₹)</label>
                   <input
                     id="budget"
                     type="text"
                     value={formData.budget}
                     onChange={handleChange}
                     placeholder="Budget Range (₹)"
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors"
+                    className="form-input"
                   />
                 </div>
 
-                <div className="contact-field relative">
-                  <label htmlFor="timeline" className="contact-field__label sr-only">Timeline / Deadline</label>
+                <div className="form-field">
+                  <label htmlFor="timeline" className="form-label">Timeline / Deadline</label>
                   <input
                     id="timeline"
                     type="text"
                     value={formData.timeline}
                     onChange={handleChange}
                     placeholder="Timeline / Deadline"
-                    className="contact-field__input w-full bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors"
+                    className="form-input"
                   />
                 </div>
 
-                <div className="contact-field relative h-full flex flex-col">
-                  <label htmlFor="message" className="contact-field__label sr-only">Tell me about the project...</label>
+                <div className="form-field">
+                  <label htmlFor="message" className="form-label">Tell me about the project...</label>
                   <textarea
                     id="message"
                     required
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Tell me about the project..."
-                    className="contact-field__textarea w-full h-full min-h-[140px] bg-transparent border-b border-white/20 pb-3 text-lg font-medium text-white placeholder-white/40 rounded-none outline-none focus:border-orange transition-colors resize-none"
+                    className="form-textarea"
                   />
                 </div>
               </div>
@@ -235,29 +233,29 @@ export function Contact() {
             </div>
 
             {/* Permission Row */}
-            <div className="flex flex-col md:flex-row gap-12 mt-4 pt-6 border-t border-white/10">
-              <div className="flex items-start gap-3 md:w-1/2">
+            <div className="contact-permission-row">
+              <div className="contact-permission-checkbox-group">
                 <input
                   id="permission"
                   type="checkbox"
                   checked={formData.permission}
                   onChange={handleChange}
-                  className="mt-1 w-4 h-4 accent-orange cursor-pointer"
+                  className="form-checkbox"
                 />
-                <label htmlFor="permission" className="text-white/70 text-sm font-sans font-light select-none cursor-pointer">
+                <label htmlFor="permission" className="contact-permission-label">
                   I give permission to contact me at this email address.
                 </label>
               </div>
               
-              <div className="md:w-1/2 text-white/50 text-sm font-light font-sans max-w-[400px] leading-relaxed">
+              <div className="contact-info">
                 Direct contact: sanmukhsai@gmail.com<br />
                 Behance: behance.net/saisanmukh · Instagram: @sanmukh.designs
               </div>
             </div>
 
             {/* Final CTA Row */}
-            <div className="contact-actions flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
-              <p className="text-white/50 text-sm font-sans max-w-[250px] leading-relaxed">
+            <div className="contact-actions">
+              <p className="contact-cta-text">
                 Ready to start a project or collaboration? Send a direct signal.
               </p>
               
@@ -272,7 +270,7 @@ export function Contact() {
                   viewBox="0 0 14 14"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="group-hover:translate-x-1 transition-transform duration-300"
+                  className="contact-link-icon"
                 >
                   <path
                     d="M1 7H13M13 7L7 1M13 7L7 13"

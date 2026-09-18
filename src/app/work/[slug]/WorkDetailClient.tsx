@@ -5,7 +5,6 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { useCursor } from "@/hooks/useCursor";
 import { Project } from "@/types/project";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 
@@ -76,7 +75,6 @@ export function WorkDetailClient({ project, prevProject, nextProject }: WorkDeta
       ref={containerRef}
       className="min-h-screen bg-[#0C0C0C] text-white overflow-x-hidden relative selection:bg-orange selection:text-[#0C0C0C]"
     >
-      <CustomCursor />
 
 
       {/* Top Navigation */}
